@@ -12,7 +12,7 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'address', 'longitude', 'lattitude'
+        'address', 'longitude', 'latitude'
     ];
 
     public function user()
