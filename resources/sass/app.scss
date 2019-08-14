@@ -1,8 +1,43 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Themes and Dependencies
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~ionicons/dist/css/ionicons.min.css";
+@import "~select2/dist/css/select2.min.css";
+
+// Bootstrap
+@import '~bootstrap/dist/css/bootstrap.min.css';
+// @import "~bootstrap-daterangepicker/daterangepicker.css";
+// @import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
+// @import "~bootstrap-timepicker/css/bootstrap-timepicker.min.css";
+
+// iCheck
+@import "~icheck/skins/all.css";
+
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// AdminLTE
+@import "~admin-lte/dist/css/AdminLTE.min.css";
+@import "~admin-lte/dist/css/skins/skin-yellow.min.css";
+@import "~admin-lte/dist/css/skins/skin-red.min.css";
+@import "~admin-lte/dist/css/skins/skin-green.min.css";
+@import "~admin-lte/dist/css/skins/skin-blue.min.css";
+
+// Toast Jquery
+@import "~jquery-toast-plugin/src/jquery.toast.css";
+
+// iCheck
+@import "~admin-lte/plugins/iCheck/square/blue.css";
+
+// Data Table
+@import "~datatables.net-bs/css/dataTables.bootstrap.css";
+
+// Light Gallery
+@import "~lightgallery/dist/css/lightgallery.min.css";
+
+.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}

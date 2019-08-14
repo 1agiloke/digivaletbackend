@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone', 15)->default(null)->nullable()->unique();
 
-            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('location_id')->default(null)->nullable();
             $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
 
             $table->rememberToken();
