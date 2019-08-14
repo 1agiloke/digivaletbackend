@@ -22,9 +22,9 @@
             <!-- Logo -->
             <a href="index2.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>ADM</b></span>
+                <span class="logo-mini"><b>M</b>DV</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b> {{ env('APP_NAME') }}</span>
+                <span class="logo-lg"><b>Merchant</b> {{ env('APP_NAME') }}</span>
             </a>
 
             <!-- Header Navbar -->
@@ -96,9 +96,14 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li>
-                        <a href="#">
+                    <li class="{{(Request::segment(1) == '') ? "active" : ""}}">
+                        <a href="{{ route('home') }}">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(1) == 'parking-data') ? "active" : ""}}">
+                        <a href="{{ route('parking-data.index') }}">
+                            <i class="fa fa-car"></i> <span>Parking Data</span>
                         </a>
                     </li>
                 </ul>
