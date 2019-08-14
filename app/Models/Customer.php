@@ -14,4 +14,9 @@ class Customer extends Model
     protected $fillable = [
         'name', 'email', 'password', 'phone', 'saldo'
     ];
+
+    public function parkingDatas()
+    {
+        return $this->hashMany('App\Models\ParkingData');
+    }
 }
