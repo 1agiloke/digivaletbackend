@@ -16,5 +16,6 @@ Auth::routes();
 Route::middleware(['auth:web'])->group(function () {
 	// dashboard
 	Route::get('/', 'HomeController@index')->name('home');
-	Route::get('/home', 'HomeController@index');
+
+    Route::match(['get', 'post'], 'parking-data', 'ParkingDataController@index')->name('parking-data.index');
 });
