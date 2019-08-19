@@ -7,10 +7,19 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Route;
+use App\Http\Helper\ResponseObject;
+
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected $response_data;
+
+    public function __construct()
+    {
+        $this->response_data = new ResponseObject();
+    }
 
     protected function view($data = [], $mergeData = [])
     {

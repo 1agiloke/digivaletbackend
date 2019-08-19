@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Customer extends Model
+class Customer extends Authenticatable implements JWTSubject
 {
     /**
      * The attributes that are mass assignable.
@@ -15,8 +17,12 @@ class Customer extends Model
         'name', 'email', 'password', 'phone', 'saldo'
     ];
 
-    public function parkingDatas()
+    public function getJWTIdentifier()
     {
-        return $this->hashMany('App\Models\ParkingData');
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
