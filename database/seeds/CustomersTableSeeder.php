@@ -21,5 +21,14 @@ class CustomersTableSeeder extends Seeder
             'phone'     => '085261538606',
             'saldo'     => '1000000',
         ]);
+
+        Customer::firstOrCreate([
+            'email' => 'agiru.zu@gmail.com'
+        ], [
+            'name' => 'Agil Zulkarnaen',
+            'saldo' => '500000',
+            'password' => Hash::make('admin2121'),
+            'phone' => '081275603055'
+        ]);
     }
 }
