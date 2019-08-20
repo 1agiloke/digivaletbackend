@@ -21,5 +21,26 @@ class UsersTableSeeder extends Seeder
             $user->password     = Hash::make('password');
             $user->save();
         }
+        User::firstOrCreate([
+            'email' => 'cold.lipz69@gmail.com'
+        ], [
+            'name' => 'Biring (Bibir Kering)',
+            'phone' => '085360867334',
+            'password' => Hash::make('admin2121'),
+        ]);
+        User::firstOrCreate([
+            'email' => 'cold.lipz69@gmail.com'
+        ], [
+            'name' => 'Biring (Bibir Kering)',
+            'phone' => '085360867334',
+            'password' => Hash::make('admin2121'),
+        ]);
+        User::firstOrCreate([
+            'email' => 'cold.lipz69@gmail.com'
+        ], [
+            'name' => 'Biring (Bibir Kering)',
+            'phone' => '085360867334',
+            'password' => Hash::make('admin2121'),
+        ]);
     }
 }
