@@ -21,8 +21,14 @@ class Customer extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function parking_datas()
+    {
+        return $this->hasMany('App\Models\ParkingData');
     }
 }

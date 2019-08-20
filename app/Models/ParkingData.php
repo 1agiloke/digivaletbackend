@@ -12,11 +12,16 @@ class ParkingData extends Model
      * @var array
      */
     protected $fillable = [
-        'police_number', 'date', 'day', 'time_in', 'time_out', 'price', 'status', 'customer_id'
+        'police_number', 'date', 'day', 'time_in', 'time_out', 'price', 'status', 'customer_id', 'parking_id'
     ];
 
     public function customer()
     {
         return $this->belongsTo('App\Models\Customer');
+    }
+
+    public function parking()
+    {
+        return $this->belongsTo('App\Models\Parking');
     }
 }
