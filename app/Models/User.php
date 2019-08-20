@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'location_id'
+        'name', 'email', 'password', 'phone'
     ];
 
     /**
@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function location()
+    public function parkings()
     {
-        return $this->hashOne('App\Models\Location');
+        return $this->hasMany('App\Models\Parking');
     }
 }

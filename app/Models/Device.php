@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class Device extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'address', 'longitude', 'latitude'
+        'key', 'name'
     ];
 
     public function parking()
