@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin | {{ env('APP_NAME') }}</title>
+    <title>Merchant | {{ env('APP_NAME') }}</title>
 
     <!-- Google Font -->
     <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css') }}">
@@ -13,7 +13,7 @@
     @yield('css')
 </head>
 
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-yellow sidebar-mini">
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -22,9 +22,9 @@
             <!-- Logo -->
             <a href="{{ route('home') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>DV</span>
+                <span class="logo-mini"><b>M</b>DV</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b> {{ env('APP_NAME') }}</span>
+                <span class="logo-lg"><b>Merchant</b> {{ env('APP_NAME') }}</span>
             </a>
 
             <!-- Header Navbar -->
@@ -52,7 +52,7 @@
 
                                     <p>
                                         {{ Auth::user()->name }}
-                                        <small>Admin since : {{ date_format(Auth::user()->created_at, 'M. Y') }}</small>
+                                        <small>Merchant Since : {{ date_format(Auth::user()->created_at, 'M. Y') }}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -61,11 +61,11 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Sign out
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </div>
@@ -97,8 +97,13 @@
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="{{(Request::segment(1) == '') ? "active" : ""}}">
-                        <a href="{{ route('admin.home') }}">
+                        <a href="{{ route('home') }}">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(1) == 'parking-data') ? "active" : ""}}">
+                        <a href="{{ route('parking-data.index') }}">
+                            <i class="fa fa-car"></i> <span>Parking Data</span>
                         </a>
                     </li>
                 </ul>

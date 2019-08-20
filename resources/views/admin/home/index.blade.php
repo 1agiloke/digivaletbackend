@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('header')
 	<section class="content-header">
 		<h1>
 		Dashboard
-		<small>Merchant</small>
+		<small>Admin</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
