@@ -108,7 +108,7 @@
                     "data" : {}
                 },
                 "language": {
-                    "emptyTable": "Tidak Ada Data Tersedia",
+                    "emptyTable": "No Data Available",
                 },
                 "columns": [
                     {
