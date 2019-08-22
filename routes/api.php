@@ -38,6 +38,12 @@ Route::group([
         Route::post('logout',                   'AuthController@logout');
     });
 
+    Route::prefix('parking')->group(function(){
+        Route::get('list', 'ParkingController@list');
+        Route::post('enter', 'ParkingController@enter');
+        Route::post('exit', 'ParkingController@exit');
+    });
+
     // Route::get('customer', 'CustomerController@index')->name('customer');
     // Route::get('category/all', 'CategoryController@all');
     // Route::get('brand/all', 'BrandController@all');
