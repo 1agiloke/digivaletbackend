@@ -101,6 +101,11 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(1) == 'parking') ? "active" : ""}}">
+                        <a href="{{ route('parking.index') }}">
+                            <i class="fa fa-flag-checkered"></i> <span>Parking</span>
+                        </a>
+                    </li>
                     <li class="{{(Request::segment(1) == 'parking-data') ? "active" : ""}}">
                         <a href="{{ route('parking-data.index') }}">
                             <i class="fa fa-car"></i> <span>Parking Data</span>

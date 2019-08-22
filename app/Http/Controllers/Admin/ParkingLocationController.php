@@ -8,6 +8,7 @@ use App\Models\Parking;
 use App\Models\Location;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
+use App\Models\ConfigParking;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +29,6 @@ class ParkingLocationController extends Controller
             $column = [
                 "device_name",
                 "name",
-                "phone",
                 "capacity",
                 "exist",
                 "created_at"
@@ -105,9 +105,17 @@ class ParkingLocationController extends Controller
                 $parking->device_id     = $device->id;
                 $parking->user_id       = $merchant->id;
 
+
                 if (!$parking->save()) {
                     $statusRes = false;
                 } else {
+                    for ($i=0; $i < 7; $i++) {
+                        $configParking              = new ConfigParking();
+                        $configParking->parking_id  = $parking->id;
+                        $configParking->day         = strval($i);
+                        $configParking->save();
+                    }
+
                     $statusRes = true;
                 }
             });

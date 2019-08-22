@@ -34,4 +34,9 @@ class Parking extends Model
     {
         return $this->hasMany('App\Models\ParkingData');
     }
+
+    public function config_parkings()
+    {
+        return $this->hasMany('App\Models\ConfigParking');
+    }
 }

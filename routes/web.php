@@ -20,6 +20,12 @@ Route::middleware(['auth:web'])->group(function () {
     // Parking Data
     Route::match(['get', 'post'], 'parking-data', 'ParkingDataController@index')->name('parking-data.index');
 
+    // Parking
+    Route::match(['get', 'post'], 'parking', 'ParkingController@index')->name('parking.index');
+    Route::resource('parking',               'ParkingController', ['only' => [
+        'show'
+    ]]);
+
     // profile
     Route::get('/profile',                          'ProfileController@index')->name('profile.index');
     Route::post('/profile/change-password/{id}',    'ProfileController@changePassword')->name('profile.change-password');

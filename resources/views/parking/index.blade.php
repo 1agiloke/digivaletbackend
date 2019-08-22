@@ -1,21 +1,17 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('header')
 	<section class="content-header">
-		<h1>
-		Parking Location
-		<small>List</small>
-		</h1>
+		<h1>Parking</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li><a href="#">Parking Location</a></li>
-			<li class="active"><a href="#">List</a></li>
+			<li class="active">Parking</li>
 		</ol>
 	</section>
 @endsection
 
 @section('content')
-	<div class="box box-danger">
+	<div class="box box-warning">
         <div class="box-body">
             <div class="table-responsive">
                 <table id="data_table" class="table table-striped table-bordered table-hover nowrap dataTable">
@@ -23,10 +19,10 @@
                         <tr>
                             <th>No</th>
                             <th>Device Name</th>
-                            <th>Owner</th>
                             <th>Capacity</th>
                             <th>Exist</th>
                             <th>Date created</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -44,7 +40,7 @@
                 "serverSide": true,
                 "lengthChange": true,
                 "ajax": {
-                    "url": "{{ route('admin.parking-location.index') }}",
+                    "url": "{{ route('parking.index') }}",
                     "type": "POST",
                     "data" : {}
                 },
@@ -65,10 +61,6 @@
                         "orderable": true,
                     },
                     {
-                        "data": "name",
-                        "orderable": true,
-                    },
-                    {
                         "data": "capacity",
                         "orderable": true,
                     },
@@ -79,9 +71,16 @@
                     {
                         "data": "created_at",
                         "orderable": true,
+                    },
+                    {
+                        render : function(data, type, row){
+                            return	'<a href="{{ route('parking.index') }}/'+ row.id +'" class="btn btn-xs btn-info"><i class="fa fa-eye"></i> Detail</a>';
+                        },
+                        "width": "10%",
+                        "orderable": false,
                     }
                 ],
-                "order": [ 5, 'asc' ],
+                "order": [ 4, 'asc' ],
                 "fnCreatedRow" : function(nRow, aData, iDataIndex) {
                     $(nRow).attr('data', JSON.stringify(aData));
                 }
