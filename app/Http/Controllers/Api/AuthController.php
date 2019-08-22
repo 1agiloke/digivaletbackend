@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Customer;
+use App\Http\Resources\CustomerResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,13 +64,18 @@ class AuthController extends ApiController
 
         $credentials = array (
             'email' => $email,
-            'password'  => $request->password
+            'password'  => $request->password,
         );
 
         if ($token = $this->guard()->attempt($credentials)) {
             /** Send Logout Signal to another device **/
             $payload = $this->guard()->getPayload($token)->toArray();
-
+            if($this->guard()->user()->status == Customer::NONACTIVE){
+                $this->code = 200;
+                $this->response_data->status = false;
+                $this->response_data->message = __('auth.nonactive');
+                return $this->json($this->response_data, $this->code);
+            }
             /** Update Firebase Token **/
              Customer::where('email', $email)
                  ->update([
@@ -118,7 +124,9 @@ class AuthController extends ApiController
 
     public function me()
     {
-        return $this->guard()->user();
+        $this->response_data->status    = true;
+        $this->response_data->data      = new CustomerResource($this->guard()->user());
+        return $this->json();
     }
 
     /**
@@ -272,7 +280,7 @@ class AuthController extends ApiController
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60,
-            'user' => $this->guard()->user()
+            'user' => new CustomerResource($this->guard()->user())
         ];
 
         $this->response_data->status = true;

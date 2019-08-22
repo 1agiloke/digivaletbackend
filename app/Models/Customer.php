@@ -8,6 +8,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Customer extends Authenticatable implements JWTSubject
 {
+    const ACTIVE = 'active';
+    const NONACTIVE = 'non-active';
+
     /**
      * The attributes that are mass assignable.
      *
