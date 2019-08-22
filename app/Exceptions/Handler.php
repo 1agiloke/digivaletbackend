@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Http\Helper\ResponseObject;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -112,6 +113,12 @@ class Handler extends ExceptionHandler
                     'status' => false,
                     'message' => 'Method Not Allowed',
                 ], $exception->getStatusCode());
+            } else if($exception instanceof AuthenticationException){
+                return response()->json([
+                    'status' => false,
+                    'message' => $exception->getMessage(),
+                    'code' => 401
+                ], 401);
             }
         }
         return parent::render($request, $exception);
