@@ -14,8 +14,12 @@ class AlterParkingDataTable2 extends Migration
     public function up()
     {
         Schema::table('parking_data', function (Blueprint $table) {
-            $table->dateTime('exit_time')->nullable()->after('police_number');
-            $table->dateTime('entry_time')->after('police_number');
+            if(!Schema::hasColumn('parking_data', 'exit_time')){
+                $table->dateTime('exit_time')->nullable()->after('police_number');
+            }
+            if(!Schema::hasColumn('parking_data', 'entry_time')){
+                $table->dateTime('entry_time')->after('police_number');
+            }
             if (Schema::hasColumn('parking_data', 'date')) {
                 $table->dropColumn('date');
             }
