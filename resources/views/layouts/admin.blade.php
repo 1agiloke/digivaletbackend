@@ -93,10 +93,38 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="{{(Request::segment(1) == '') ? "active" : ""}}">
+                    <li class="{{(Request::segment(2) == '') ? "active" : ""}}">
                         <a href="{{ route('admin.home') }}">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
+                    </li>
+
+                    <li class="{{(Request::segment(2) == 'merchant') ? "active" : ""}}">
+                        <a href="{{ route('admin.merchant.index') }}">
+                            <i class="fa fa-user"></i> <span>Merchant</span>
+                        </a>
+                    </li>
+
+                    <li class="{{(Request::segment(2) == 'customer') ? "active" : ""}}">
+                        <a href="{{ route('admin.customer.index') }}">
+                            <i class="fa fa-users"></i> <span>Customer</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview {{ (Request::segment(2) == 'parking-location') ? "active" : ""}}">
+                        <a href="#">
+                            <i class="fa fa-map-marker"></i>
+                            <span>Parking Location</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ (Request::segment(2) == 'parking-location') && (Request::segment(3) == 'add') ? "active" : ""}}">
+                                <a href="{{ route('admin.parking-location.store') }}"><i class="fa fa-circle-o"></i>Add</a>
+                            </li>
+                            <li class="{{ (Request::segment(2) == 'parking-location') && (Request::segment(3) == null) ? "active" : ""}}">
+                                <a href="{{ route('admin.parking-location.index') }}"><i class="fa fa-circle-o"></i>List</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <!-- /.sidebar-menu -->
