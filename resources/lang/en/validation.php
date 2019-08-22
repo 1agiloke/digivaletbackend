@@ -147,4 +147,7 @@ return [
 
     'attributes' => [],
 
+    'phone'               => 'The phone number format is invalid.',
+    'phone_unique'        => 'The phone number has already been taken.',
+
 ];
