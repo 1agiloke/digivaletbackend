@@ -105,11 +105,9 @@ class AuthController extends ApiController
 
         $this->guard()->logout();
 
-        $this->response = [
-            'success' => true,
-            'message' => 'Successfully logged out',
-        ];
-        return response()->json($this->response);
+        $this->response_data->status = true;
+        $this->response_data->message = "Logout Succes";
+        return $this->json();
     }
 
     /**
