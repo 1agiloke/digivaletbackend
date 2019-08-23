@@ -21,8 +21,9 @@ Route::middleware(['auth:web'])->group(function () {
     Route::match(['get', 'post'], 'parking-data', 'ParkingDataController@index')->name('parking-data.index');
 
     // Parking
-    Route::match(['get', 'post'], 'parking', 'ParkingController@index')->name('parking.index');
-    Route::resource('parking',               'ParkingController', ['only' => [
+    Route::match(['get', 'post'], 'parking',    'ParkingController@index')->name('parking.index');
+    Route::post('parking/configuration',        'ParkingController@configuration')->name('parking.configuration');
+    Route::resource('parking',                  'ParkingController', ['only' => [
         'show'
     ]]);
 

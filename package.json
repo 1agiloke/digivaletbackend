@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "admin-lte": "^2.4.10",
+        "bootstrap-datepicker": "^1.9.0",
+        "bootstrap-timepicker": "^0.5.2",
         "datatables.net": "^1.10.19",
         "datatables.net-bs": "^1.10.19",
         "font-awesome": "^4.7.0",

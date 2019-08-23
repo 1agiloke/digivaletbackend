@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Parking;
+use App\Models\ConfigParking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -72,5 +73,35 @@ class ParkingController extends Controller
     public function show($id)
     {
         return $this->view(['data' => Parking::find($id)]);
+    }
+
+    public function configuration(Request $request)
+    {
+        $validator = $request->validate([
+            'open_time'     => 'required|date_format:H:i',
+            'close_time'    => 'required|date_format:H:i',
+            'price'         => 'required|numeric',
+            'status'        => 'required|in:close,open',
+        ]);
+
+        $config = ConfigParking::where('id', $request->id)->where('day', $request->day)->first();
+        $config->day = $request->day;
+        $config->open_time = $request->open_time;
+        $config->close_time = $request->close_time;
+        $config->price = $request->price;
+        $config->status = $request->status;
+
+        if (!$config->save()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Failed to Add'
+            ]);
+        } else {
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Added Successfully'
+            ]);
+        }
+
     }
 }
