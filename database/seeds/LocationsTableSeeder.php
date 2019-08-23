@@ -5,6 +5,7 @@ use App\Models\Device;
 use App\Models\Location;
 use App\Models\Parking;
 use App\Models\User;
+use App\Models\ConfigParking;
 
 class LocationsTableSeeder extends Seeder
 {
@@ -37,6 +38,14 @@ class LocationsTableSeeder extends Seeder
             'capacity' => 10
         ]);
 
+        for ($i=0; $i < 7; $i++) {
+            $configParking = new ConfigParking();
+            $configParking->day = strval($i);
+            $configParking->parking_id = $parking1;
+        }
+
+        // ----------------------------------------------------------------------------------------------------------------------------------
+
         $device2 = Device::firstOrCreate([
             'key' => 'j4nC0kT4cH1lH053mv4',
             'name' => 'biring_device_2'
@@ -56,5 +65,11 @@ class LocationsTableSeeder extends Seeder
         ], [
             'capacity' => 20
         ]);
+
+        for ($i = 0; $i < 7; $i++) {
+            $configParking = new ConfigParking();
+            $configParking->day = strval($i);
+            $configParking->parking_id = $parking2;
+        }
     }
 }

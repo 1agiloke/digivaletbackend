@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/bootstrap-timepicker.min.js": "/js/bootstrap-timepicker.min.js",
+    "/js/bootstrap-datepicker.min.js": "/js/bootstrap-datepicker.min.js",
     "/js/jquery.toast.min.js": "/js/jquery.toast.min.js",
     "/js/lightgallery.min.js": "/js/lightgallery.min.js"
 }
