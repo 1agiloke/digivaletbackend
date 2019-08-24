@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Parking;
 use App\Models\ParkingData;
+use App\Http\Resources\ParkingDataResource;
 use Illuminate\Support\Facades\DB;
 use \PDOException;
 
@@ -35,10 +36,7 @@ class ParkingController extends ApiController
             // ]);
 
             $device_key = $request->device_key;
-            $this->response_data->status    = true;
-            $this->response_data->message   = 'You Enter Park Area Via DigiValet';
-            $this->response_data->data      = ['device_key' => $request->device_key, 'merchant_id' => $request->merchant_id];
-            return $this->json();
+            $code = $request->code;
             if(!$parking = Parking::where('devices.key', '=', $device_key)->join('devices', 'parkings.device_id', '=', 'devices.id')->first()){
                 $this->response_data->message = 'Parking Not Found';
                 return $this->json();
@@ -48,15 +46,41 @@ class ParkingController extends ApiController
                 'customer_id'   => $user->id,
                 'status'        => ParkingData::PROCESS,
             ], [
+                'code'          => $code,
                 'entry_time'    => date('Y-m-d H:i:s'),
-                'police_number' => 'BK 6305 PKI',
+                'police_number' => 'BK 8888 INM',
                 'price'         => 0
             ]);
             DB::commit();
 
             $this->response_data->status    = true;
-            $this->response_data->message   = 'You Enter Park Area Via DigiValet';
-            $this->response_data->data      = ['device_key' => $request->device_key, 'merchant_id' => $request->merchant_id, 'parking_data' => $new_entry];
+            $this->response_data->message   = 'You are entering Park Area Via DigiValet';
+            $this->response_data->data      = ['device_key' => $request->device_key, 'merchant_id' => $request->merchant_id, 'parking_data' => (new ParkingDataResource($new_entry))];
+            return $this->json();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
+    }
+
+    public function confirm_enter(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = $request->user();
+            $code = $request->code;
+            if(!$entry = ParkingData::where('code', '=', $code)->where('customer_id', '=', $user->id)->first()){
+                $this->response_data->message   = 'Cannot find Parking Data';
+                $this->response_data->data = [];
+                return $this->json();
+            }
+            $entry->entry_time = date('Y-m-d H:i:s');
+            $entry->save();
+            DB::commit();
+
+            $this->response_data->status    = true;
+            $this->response_data->message   = 'You entered Park Area Via DigiValet';
+            $this->response_data->data      = ['parking_data' => (new ParkingDataResource($entry))];
             return $this->json();
         } catch (\Exception $e) {
             DB::rollback();

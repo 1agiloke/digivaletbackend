@@ -16,7 +16,7 @@ class ParkingData extends Model
      * @var array
      */
     protected $fillable = [
-        'police_number', 'entry_time', 'exit_time', 'price', 'status', 'customer_id', 'parking_id'
+        'code', 'police_number', 'entry_time', 'exit_time', 'price', 'status', 'customer_id', 'parking_id'
     ];
 
     public function customer()
