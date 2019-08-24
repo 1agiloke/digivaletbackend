@@ -42,6 +42,7 @@ Route::group([
         Route::get('list', 'ParkingController@list');
         Route::post('enter', 'ParkingController@enter');
         Route::post('exit', 'ParkingController@exit');
+        Route::post('confirm_enter', 'ParkingController@confirm_enter');
     });
 
     // Route::get('customer', 'CustomerController@index')->name('customer');

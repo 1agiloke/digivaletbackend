@@ -70,16 +70,11 @@ class BalanceController extends ApiController
                 }
             });
 
-            $deposit = Deposit::find($id_deposit);
+            $deposit = Deposit::with(['bank'])->find($id_deposit);
 
-            $data['nominal'] = $deposit->nominal;
-            $data['unique_code'] = $deposit->unique_code;
-            $data['price'] = intval($deposit->nominal) + intval($deposit->unique_code);
-
-            $this->code = 422;
             $this->response->status    = true;
             $this->response->message   = 'Top Up Balance Successfully';
-            $this->response->data      = $data;
+            $this->response->data      = $deposit;
         }
 
         return response()->json($this->response, $this->code);
