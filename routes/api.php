@@ -57,4 +57,8 @@ Route::group([
     Route::prefix('bank')->group(function () {
         Route::get('list',      'BankController@list');
     });
+
+    Route::prefix('location')->group(function () {
+        Route::post('near',      'LocationController@near');
+    });
 });
