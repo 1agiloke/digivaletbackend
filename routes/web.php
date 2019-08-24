@@ -31,6 +31,11 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('/profile',                          'ProfileController@index')->name('profile.index');
     Route::post('/profile/change-password/{id}',    'ProfileController@changePassword')->name('profile.change-password');
     Route::post('/profile/change-setting/{id}',     'ProfileController@changeSetting')->name('profile.change-setting');
+
+    // Top Up
+    Route::match(['get', 'post'], 'top-up',       'TopUpController@index')->name('top-up.index');
+    Route::match(['get', 'post'], 'top-up/add',   'TopUpController@store')->name('top-up.store');
+    Route::get('/top-up/transfer/{id}',           'TopUpController@transfer')->name('top-up.transfer');
 });
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
@@ -52,5 +57,13 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 
         // Customer
         Route::match(['get', 'post'], 'customer',   'CustomerController@index')->name('customer.index');
+        Route::post('customer/change-status',       'CustomerController@changeStatus')->name('customer.change-status');
+
+        // Bank
+        Route::match(['get', 'post'], 'bank',   'BankController@index')->name('bank.index');
+        Route::post('bank/add',                 'BankController@store')->name('bank.store');
+        Route::resource('bank',                 'BankController', ['only' => [
+            'update', 'destroy',
+        ]]);
     });
 });

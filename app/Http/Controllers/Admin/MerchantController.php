@@ -25,6 +25,7 @@ class MerchantController extends Controller
                 "name",
                 "email",
                 "phone",
+                "saldo",
                 "created_at"
             ];
 

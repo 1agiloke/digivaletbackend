@@ -38,4 +38,9 @@ class Customer extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Models\ParkingData');
     }
+
+    public function deposits()
+    {
+        return $this->hasMany('App\Models\Deposit');
+    }
 }

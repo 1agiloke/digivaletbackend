@@ -126,6 +126,12 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="{{(Request::segment(2) == 'bank') ? "active" : ""}}">
+                        <a href="{{ route('admin.bank.index') }}">
+                            <i class="fa fa-bank"></i> <span>Bank</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

@@ -38,6 +38,9 @@
 									-
 								@endif
 							</p>
+                        </li>
+                        <li class="list-group-item">
+							<b>Saldo</b> <p class="pull-right">Rp. {{ $data->saldo }}</p>
 						</li>
 					</ul>
                 </div>

@@ -111,6 +111,21 @@
                             <i class="fa fa-car"></i> <span>Parking Data</span>
                         </a>
                     </li>
+                    <li class="treeview {{ (Request::segment(1) == 'top-up') ? "active" : ""}}">
+                        <a href="#">
+                            <i class="fa fa-money"></i>
+                            <span>Balance</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ (Request::segment(1) == 'top-up') && (Request::segment(2) == 'add') ? "active" : ""}}">
+                                <a href="{{ route('top-up.store') }}"><i class="fa fa-circle-o"></i>Top Up</a>
+                            </li>
+                            <li class="{{ (Request::segment(1) == 'top-up') && (Request::segment(2) == null) ? "active" : ""}}">
+                                <a href="{{ route('top-up.index') }}"><i class="fa fa-circle-o"></i>History</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
