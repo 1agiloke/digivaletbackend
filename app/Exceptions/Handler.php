@@ -100,13 +100,21 @@ class Handler extends ExceptionHandler
                 }
 
             } else if($exception instanceof NotFoundHttpException) {
-                switch (get_class($exception->getPrevious())) {
-                    default:
-                        return response()->json([
-                            'status' => false,
-                            'message' => "request not found",
-                            'code' => 404
-                        ], $exception->getStatusCode());
+                if($exception->getPrevious()){
+                    switch (get_class($exception->getPrevious())) {
+                        default:
+                            return response()->json([
+                                'status' => false,
+                                'message' => "request not found",
+                                'code' => 404
+                            ], $exception->getStatusCode());
+                    }
+                } else{
+                    return response()->json([
+                        'status' => false,
+                        'message' => "request not found",
+                        'code' => 404
+                    ], $exception->getStatusCode());
                 }
             }else if($exception instanceof MethodNotAllowedHttpException){
                 return response()->json([
