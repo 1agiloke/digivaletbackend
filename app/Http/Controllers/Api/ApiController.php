@@ -11,6 +11,7 @@ use Exception;
 class ApiController extends Controller
 {
     public $code;
+    public $response;
 
 	/**
      * Create a new instance.
@@ -20,7 +21,14 @@ class ApiController extends Controller
     public function __construct()
     {
         parent::__construct();
-    	$this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'resetPassword']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'resetPassword']]);
+
+        $this->response = new \stdClass();
+        $this->response->status = true;
+        $this->response->error = [];
+        $this->response->data = [];
+        $this->response->message = '';
+        $this->code = 200;
     }
 
     /**

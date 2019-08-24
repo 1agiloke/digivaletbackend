@@ -54,4 +54,26 @@ class CustomerController extends Controller
 
         return $this->view();
     }
+
+    public function changeStatus(Request $request)
+    {
+        $validator = $request->validate([
+            'status'      => 'required|in:active,non-active',
+        ]);
+
+        $customer = Customer::find($request->id);
+        $customer->status = $request->status;
+
+        if (!$customer->save()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Failed to Change Status'
+            ]);
+        } else {
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Change Status Successfully'
+            ]);
+        }
+    }
 }

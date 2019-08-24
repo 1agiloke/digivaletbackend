@@ -49,4 +49,13 @@ Route::group([
     // Route::get('category/all', 'CategoryController@all');
     // Route::get('brand/all', 'BrandController@all');
     // Route::get('good', 'GoodController@index')->name('brand');
+
+    Route::prefix('balance')->group(function () {
+        Route::get('list',      'BalanceController@list');
+        Route::post('top-up',   'BalanceController@topUp');
+    });
+
+    Route::prefix('bank')->group(function () {
+        Route::get('list',      'BankController@list');
+    });
 });
