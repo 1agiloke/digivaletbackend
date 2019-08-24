@@ -67,6 +67,33 @@ class BalanceController extends ApiController
 
                     $statusRes = true;
                     $id_deposit = $deposit->id;
+
+                    $postData = array(
+                        'msisdn' => '085261538606',
+                        'content' => 'Your balance of ' . $request->nominal . ' has been successfully added to your balance',
+                    );
+
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "https://api.thebigbox.id/sms-notification/1.0.0/messages",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => http_build_query($postData),
+                        CURLOPT_HTTPHEADER => array(
+                            "Accept: application/x-www-form-urlencoded",
+                            "Content-Type: application/x-www-form-urlencoded",
+                            "x-api-key: 33ti4mLfTbe7mhw5HU9YO8TI3XqGOQ6Z"
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+
+                    curl_close($curl);
                 }
             });
 
