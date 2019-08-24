@@ -54,7 +54,7 @@ class ParkingController extends ApiController
             DB::commit();
 
             $this->response_data->status    = true;
-            $this->response_data->message   = 'You Enter Park Area Via DigiValet';
+            $this->response_data->message   = 'You are entering Park Area Via DigiValet';
             $this->response_data->data      = ['device_key' => $request->device_key, 'merchant_id' => $request->merchant_id, 'parking_data' => (new ParkingDataResource($new_entry))];
             return $this->json();
         } catch (\Exception $e) {
@@ -71,6 +71,7 @@ class ParkingController extends ApiController
             $code = $request->code;
             if(!$entry = ParkingData::where('code', '=', $code)->where('customer_id', '=', $user->id)->first()){
                 $this->response_data->message   = 'Cannot find Parking Data';
+                $this->response_data->data = [];
                 return $this->json();
             }
             $entry->entry_time = date('Y-m-d H:i:s');
@@ -78,7 +79,7 @@ class ParkingController extends ApiController
             DB::commit();
 
             $this->response_data->status    = true;
-            $this->response_data->message   = 'You Enter Park Area Via DigiValet';
+            $this->response_data->message   = 'You entered Park Area Via DigiValet';
             $this->response_data->data      = ['parking_data' => (new ParkingDataResource($entry))];
             return $this->json();
         } catch (\Exception $e) {
