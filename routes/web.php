@@ -18,7 +18,8 @@ Route::middleware(['auth:web'])->group(function () {
 	Route::get('/', 'HomeController@index')->name('home');
 
     // Parking Data
-    Route::match(['get', 'post'], 'parking-data', 'ParkingDataController@index')->name('parking-data.index');
+    Route::match(['get', 'post'], 'parking-data',       'ParkingDataController@index')->name('parking-data.index');
+    Route::post('parking-data/manual-payment/{id}',     'ParkingDataController@manualPayment')->name('parking-data.manual-payment');
 
     // Parking
     Route::match(['get', 'post'], 'parking',    'ParkingController@index')->name('parking.index');

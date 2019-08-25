@@ -12,40 +12,40 @@ class ParkingDatasTableSeeder extends Seeder
      */
     public function run()
     {
-        // ParkingData::firstOrCreate([
-        //     'police_number' => 'BK 5533 XBB'
-        // ], [
-        //     'date'          => date("Y-m-d"),
-        //     'day'           => '1',
-        //     'time_in'       => date("H:i"),
-        //     'time_out'      => date("H:i"),
-        //     'price'         => '10000',
-        //     'status'        => 'done',
-        //     'customer_id'   => 1
-        // ]);
+        ParkingData::firstOrCreate([
+            "code" => '12345'
+        ], [
+            'police_number' => 'BK 5533 XBB',
+            'entry_time'    => date("Y-m-d H:i:s"),
+            'exit_time'     => date("Y-m-d H:i:s"),
+            'price'         => '10000',
+            'status'        => 'done',
+            'customer_id'   => 1,
+            'parking_id'    => 1
+        ]);
 
-        // ParkingData::firstOrCreate([
-        //     'police_number' => 'BK 1144 ASD'
-        // ], [
-        //     'date'          => date("Y-m-d"),
-        //     'day'           => '2',
-        //     'time_in'       => date("H:i"),
-        //     'time_out'      => date("H:i"),
-        //     'price'         => '3000',
-        //     'status'        => 'process',
-        //     'customer_id'   => 1
-        // ]);
+        ParkingData::firstOrCreate([
+            "code" => '123456'
+        ], [
+            'police_number' => 'BK 8800 ZXC',
+            'entry_time'    => date("Y-m-d H:i:s"),
+            'exit_time'     => null,
+            'price'         => '0',
+            'status'        => 'process',
+            'customer_id'   => 2,
+            'parking_id'    => 1
+        ]);
 
-        // ParkingData::firstOrCreate([
-        //     'police_number' => 'BK 8800 ZXC'
-        // ], [
-        //     'date'          => date("Y-m-d"),
-        //     'day'           => '3',
-        //     'time_in'       => date("H:i"),
-        //     'time_out'      => date("H:i"),
-        //     'price'         => '25000',
-        //     'status'        => 'failed',
-        //     'customer_id'   => 1
-        // ]);
+        ParkingData::firstOrCreate([
+            "code" => '1234567'
+        ], [
+            'police_number' => 'BK 1144 ASD',
+            'entry_time'    => date("Y-m-d H:i:s"),
+            'exit_time'     => null,
+            'price'         => '0',
+            'status'        => 'process',
+            'customer_id'   => 2,
+            'parking_id'    => 1
+        ]);
     }
 }

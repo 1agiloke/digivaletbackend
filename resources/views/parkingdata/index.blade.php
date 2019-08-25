@@ -39,16 +39,65 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Parking Code</th>
                             <th>Police Number</th>
-                            <th>Date</th>
-                            <th>Day</th>
-                            <th>Time In</th>
-                            <th>Time Out</th>
+                            <th>Customer Name</th>
+                            <th>Entry Time</th>
+                            <th>Exit Time</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalManualPayment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#" method="post" id="formManualPayment" enctype="multipart/form-data" autocomplete="off">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <input type="hidden" id="id_parking" name="id_parking">
+                            <input type="hidden" id="id_config_parking" name="id_config_parking">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Duration</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="number" name="number" class="form-control" value="2 Hours" readonly>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Price</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="owner" name="owner" class="form-control" value="Rp. 6000" readonly>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -84,50 +133,33 @@
                        "orderable": false,
                     },
                     {
+                        "data": "code",
+                        "orderable": true,
+                    },
+                    {
                         "data": "police_number",
                         "orderable": true,
                     },
                     {
-                        "data": "date",
+                        "data": "customer.name",
                         "orderable": true,
                     },
                     {
-                        "data": "day",
+                        "data": "entry_time",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "exit_time",
                         render: function (data, type, row){
-                            if ( data == "1" ) {
-                                return "Monday"
-                            }
-                            else if( data == "2" ) {
-                                return "Tuesday"
-                            }
-                            else if( data == "3" ) {
-                                return "Wednesday"
-                            }
-                            else if( data == "4" ) {
-                                return "Thursday"
-                            }
-                            else if( data == "5" ) {
-                                return "Friday"
-                            }
-                            else if( data == "6" ) {
-                                return "Saturday"
-                            }
-                            else if( data == "7" ) {
-                                return "Sunday"
-                            }
+                            return data == null ? '-' : data;
                         },
                         "orderable": true,
                     },
                     {
-                        "data": "time_in",
-                        "orderable": true,
-                    },
-                    {
-                        "data": "time_out",
-                        "orderable": true,
-                    },
-                    {
                         "data": "price",
+                        render: function (data, type, row){
+                            return "Rp. " + data;
+                        },
                         "orderable": true,
                     },
                     {
@@ -145,11 +177,40 @@
                         },
                         "orderable": true,
                     },
+                    {
+                        render : function(data, type, row){
+                            if(row.status == 'process' ){
+                                return	'<a href="#" class="manual-payment-btn btn btn-xs btn-warning" data-parking="'+ row.parking.id +'" data-config_parking="'+ {{ date("w") }} +'"><i class="fa fa-pencil"> Manual Payment</i></a>';
+                            } else {
+                                return "&nbsp";
+                            }
+                        },
+                        "width": "10%",
+                        "orderable": false,
+                    }
                 ],
                 "order": [ 1, 'asc' ],
                 "fnCreatedRow" : function(nRow, aData, iDataIndex) {
                     $(nRow).attr('data', JSON.stringify(aData));
                 }
+            });
+
+            // Manual Payment
+            $('#data_table').on('click', '.manual-payment-btn', function(e){
+                $('#formManualPayment div.form-group').removeClass('has-error');
+                $('#formManualPayment .help-block').empty();
+                $('#formManualPayment .modal-title').text("Manual Payment");
+                $('#formManualPayment')[0].reset();
+                var aData = JSON.parse($(this).parent().parent().attr('data'));
+                $('#formManualPayment button[type=submit]').button('reset');
+
+                $('#formManualPayment .modal-body .form-horizontal').append('<input type="hidden" name="_method" value="PUT">');
+                url = '{{ route("parking-data.index") }}' + '/manual-payment/' + aData.id;
+
+                $('#formManualPayment #id_parking').val($(this).data('parking'));
+                $('#formManualPayment #id_config_parking').val($(this).data('config_parking'));
+
+                $('#modalManualPayment').modal('show');
             });
 
             $('#btnFilter').click(function (e) {

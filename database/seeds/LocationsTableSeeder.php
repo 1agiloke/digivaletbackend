@@ -16,7 +16,7 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        $merchant = User::where('email', '=', 'cold.lipz69@gmail.com')->first();
+        $merchant = User::where('email', '=', 'developer@gmail.com')->first();
 
         $device1 = Device::firstOrCreate([
             'key' => 'r45aY4n6p3rN4h4dA',

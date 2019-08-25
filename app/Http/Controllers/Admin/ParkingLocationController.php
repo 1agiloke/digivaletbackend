@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\ConfigParking;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ParkingLocationController extends Controller
 {
@@ -88,9 +89,37 @@ class ParkingLocationController extends Controller
             DB::transaction(function () use ($request, &$statusRes) {
                 $merchant = User::find($request->merchant);
 
+                $dataReq = [
+                    'merchan_name'    => date("YmdHis"),
+                ];
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "http://ae510381.ngrok.io/antares/create_device",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($dataReq),
+                    CURLOPT_HTTPHEADER => array(
+                        "Accept: */*",
+                        "Content-Type: application/json",
+                    ),
+                ));
+
+                $response   = curl_exec($curl);
+                $err        = curl_error($curl);
+                $res        = json_decode($response, true);
+                $dataRes    = $res['data'];
+
+                curl_close($curl);
+
                 $device         = new Device();
-                $device->key    = (string) Uuid::generate(4);
-                $device->name   = $merchant->name . '_' . date("YmdHis");
+                $device->key    = $dataRes['key'];
+                $device->name   = $dataRes['merchan_name'];
                 $device->save();
 
                 $location               = new Location();

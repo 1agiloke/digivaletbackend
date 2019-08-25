@@ -94,10 +94,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Kembali
+                            Cancel
                         </button>
                         <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
-                            Simpan
+                            Save
                         </button>
                     </div>
                 </form>
