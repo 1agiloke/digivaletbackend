@@ -26,6 +26,6 @@ class ParkingData extends Model
 
     public function parking()
     {
-        return $this->belongsTo('App\Models\Parking');
+        return $this->belongsTo('App\Models\Parking')->with(['user', 'device']);
     }
 }

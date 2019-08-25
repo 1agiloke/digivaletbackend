@@ -41,7 +41,8 @@ class LocationsTableSeeder extends Seeder
         for ($i=0; $i < 7; $i++) {
             $configParking = new ConfigParking();
             $configParking->day = strval($i);
-            $configParking->parking_id = $parking1;
+            $configParking->parking_id = $parking1->id;
+            $configParking->save();
         }
 
         // ----------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +70,8 @@ class LocationsTableSeeder extends Seeder
         for ($i = 0; $i < 7; $i++) {
             $configParking = new ConfigParking();
             $configParking->day = strval($i);
-            $configParking->parking_id = $parking2;
+            $configParking->parking_id = $parking2->id;
+            $configParking->save();
         }
     }
 }

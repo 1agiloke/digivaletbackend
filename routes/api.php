@@ -40,6 +40,7 @@ Route::group([
 
     Route::prefix('parking')->group(function(){
         Route::get('list', 'ParkingController@list');
+        Route::get('current', 'ParkingController@current');
         Route::post('enter', 'ParkingController@enter');
         Route::post('exit', 'ParkingController@exit');
         Route::post('confirm_enter', 'ParkingController@confirm_enter');
